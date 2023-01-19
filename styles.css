@@ -1,0 +1,33 @@
+* {
+    padding: 0;
+    margin: 0;
+
+}
+
+body {
+    background-color: white;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.fa-regular{
+    font-size: 20px;
+    /* width: 10px;
+    height: 10px; */
+    border-radius: 50px;
+}
+
+.cards{
+    background-color: aqua;
+    justify-content: space-between;
+}
+
+.imgCard{
+    height: 150px;
+    width: 150px;
+}
