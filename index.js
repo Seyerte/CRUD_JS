@@ -5,9 +5,7 @@ let newCard= document.getElementById("newCard");
 //Variables
 const cards = [];
 let isEditMode = false;
-let indexToEdit; null;
-
-
+let indexToEdit= null;
 
 
 //LOGICA
@@ -15,8 +13,9 @@ let indexToEdit; null;
 // funcion flecha, crea una funcion.
 //funcion de agregar tarjeta
 const addCard = () => {
-    if (isEditMode) cards.push(newCard.value);
-    if (isEditMode) cards(indexToEdit) = newCard.value;
+    if (!isEditMode) cards.push(newCard.value);
+    if (isEditMode) cards[indexToEdit] = newCard.value;
+    toAddMode();
     newCard.value = "";
     render();
 };
@@ -25,18 +24,22 @@ const addCard = () => {
 function deleteByIndex (index) {
     cards.splice (index, 1);
     render();
-}
+};
 
-const editByIndex = (index) => {
-    newCard.value = cardsList(index);
-    isEditMode; true;
+//funcion editar
+const editByIndex =   (index) => {
+    newCard.value = cardsList[index]; 
+    isEditMode = true;
     indexToEdit = index;
-    buttonPlus.innerText = "update";
+    buttonPlus.innerText = "";
     console.log(indexToEdit);
-    render();
+};
+
+const toAddMode = () => {
+    isEditMode = false;
+    buttonAdd.innerText = "";
+    indexToEdit = null;
 }
-
-
 
 //FUNCION RENDER
 const render = () => {
@@ -46,10 +49,12 @@ const render = () => {
             (template += 
                 `<li>${card}>
                     <button onclick="deleteByIndex(${index})">Delete</button>
-                    <button onclick=editByIndex(${index})">Edit</button>
+                    <button onclick="editByIndex(${index})">Edit</button>
                 </li>`));
     cardsList.innerHTML = template;
-}
+};
+
+
 
 render();
 
