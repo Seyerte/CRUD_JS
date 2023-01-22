@@ -2,6 +2,8 @@
 let buttonAdd = document.getElementById("buttonPlus");
 let cardsList = document.getElementById("cardsList");
 let newCard= document.getElementById("newCard");
+let newTitle = document.getElementById("newTitle");
+let newImage = document.getElementById("newImage");
 //Variables
 const cards = [];
 let isEditMode = false;
@@ -13,10 +15,15 @@ let indexToEdit= null;
 // funcion flecha, crea una funcion.
 //funcion de agregar tarjeta
 const addCard = () => {
-    if (!isEditMode) cards.push(newCard.value);
-    if (isEditMode) cards[indexToEdit] = newCard.value;
+    const card = {
+        title: newTitle.value,
+        image: newImage.value
+    };
+    if (!isEditMode) cards.push(card);
+    if (isEditMode) cards[indexToEdit] = card;
     toAddMode();
-    newCard.value = "";
+    newTitle.value = "";
+    newImage.value = "";
     render();
 };
 
@@ -27,33 +34,35 @@ function deleteByIndex (index) {
 };
 
 //funcion editar
-const editByIndex =   (index) => {
-    newCard.value = cardsList[index]; 
+const editByIndex =  (index) => {
+    newTitle.value = cards[index].title; 
+    newImage.value = cards[index].image; 
     isEditMode = true;
     indexToEdit = index;
     buttonPlus.innerText = "";
     console.log(indexToEdit);
+
 };
 
 const toAddMode = () => {
     isEditMode = false;
-    buttonAdd.innerText = "";
+    //buttonAdd.innerText = "Add";
     indexToEdit = null;
 }
 
 //FUNCION RENDER
 const render = () => {
     let template = "";
-    cards.forEach(
-        (card, index) => 
-            (template += 
-                `<li>${card}>
+    cards.forEach((card, index) => {
+            template += 
+                `<li class="card">
+                    <img class="image" src="${card.image}" alt="">
+                    <h2>${card.title}</h2>
                     <button onclick="deleteByIndex(${index})">Delete</button>
                     <button onclick="editByIndex(${index})">Edit</button>
-                </li>`));
+                </li>`});
     cardsList.innerHTML = template;
 };
-
 
 
 render();
